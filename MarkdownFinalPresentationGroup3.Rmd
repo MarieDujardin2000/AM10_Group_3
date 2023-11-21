@@ -923,6 +923,98 @@ ggplot(filteredSearchTrend, aes(x = date, y = searchVolume, color = condition)) 
     axis.text.x = element_text(size = 8))
 ```
 
+# Mortality And Infection Rate
+
+```{r}
+merge <- merge(SearchTrend, Time, by = "date")
+glimpse(merge)
+```
+
+
+```{r}
+
+# Calculate new Cases, new tests, and new deceased
+Time_cleaned <- Time %>%
+  mutate(
+    new_tests = ifelse(row_number() == 1, test, test - lag(test)),
+    new_confirmed = ifelse(row_number() == 1, confirmed, confirmed - lag(confirmed)),
+    new_deceased = ifelse(row_number() == 1, deceased, deceased - lag(deceased)),
+    date = as.Date(date, format="%Y-%m-%d")  # Ensure date is in Date format
+  )
+```
+
+
+```{r}
+merge <- merge(SearchTrend, Time_cleaned, by = "date")
+glimpse(merge)
+```
+
+
+```{r}
+merge <- transform(merge,
+                   mortality_rate = new_deceased / new_confirmed,
+                   infection_rate = new_confirmed / new_tests)
+
+# Convert date to a date format
+merge$date <- as.Date(merge$date)
+Policy$start_date <- as.Date(Policy$start_date)
+
+# Create a graph of the mortality rate over Time with the x-axis showing months
+
+# Plot 1: Mortality Rate Over Time
+
+# Plotting
+a <- ggplot(data = merge, aes(x = date)) +
+  geom_line(aes(y = mortality_rate, color = "Mortality Rate"), size = 0.75) +
+  geom_line(aes(y = infection_rate, color = "Infection Rate"), size = 0.75) +
+  scale_x_date(date_labels = "%b", date_breaks = "1 month") +
+  labs(title = "Increased Mortality Amidst Fewer Infections Highlights Critical Challenges",
+       subtitle = "Mortality and Infection Rates Over Time from 20/01/2020 to 30/06/2020",
+       y = "Rate") +
+  xlab(NULL)+ 
+  scale_color_manual(values = c("Mortality Rate" = "blue4", "Infection Rate" = "brown1")) +
+  theme_minimal() +
+  ylim(0, 0.7)  + # Adjust the y-axis limits as needed
+  theme(
+    panel.grid.major = element_blank(), 
+    panel.background = element_blank(),
+    plot.title = element_text(size = 13, face = "bold"),
+    plot.subtitle = element_text(size = 11)
+  )
+
+# Display the plot
+print(a)
+
+# Plot 2: COVID-19 Metrics Over Time
+merge2 <- left_join(merge, Policy, by = c("date" = "start_date"))
+
+# Plot 2: COVID-19 Metrics Over Time
+b <- ggplot(data = merge2, aes(x = date)) +
+  geom_line(aes(y = new_tests, color = "Tests"), size = 0.75) +
+  geom_line(aes(y = new_confirmed, color = "Infected"), size = 0.75) +
+  geom_line(aes(y = new_deceased, color = "Deceased"), size = 0.75) +
+  scale_y_log10(labels = scales::comma_format()) +
+  labs(subtitle = "Tested, Infected, and Deceased Over Time from 20/01/2020 to 30/06/2020",
+       y = "Volume") +
+  xlab(NULL)+ 
+  scale_color_manual(values = c("Tests" = "blue4", "Infected" = "brown1", "Deceased" = "chartreuse3")) +
+  theme_minimal() + 
+  theme(
+    panel.grid.major = element_blank(), 
+    panel.background = element_blank(),
+    plot.title = element_text(size = 13, face = "bold"),
+    plot.subtitle = element_text(size = 11)
+  )
+
+# Display the plots
+print(a)
+print(b)
+
+# Assuming a and b are the two ggplot objects
+combined_plot <- plot_grid(a, b, ncol = 1, align = "v")
+combined_plot
+```
+
 
 
 
