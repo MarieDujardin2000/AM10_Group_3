@@ -51,7 +51,13 @@ library(mosaic)
 library(ggthemes)
 library(here)
 library(tidyquant)
-
+library(sf)
+library(ggtext)
+library(patchwork)
+library(gghighlight)
+library(showtext)
+library(corrplot)
+library(cowplot)
 ```
 
 ```{r, load datasets, echo=FALSE, warning=FALSE, message=FALSE,}
