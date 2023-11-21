@@ -78,6 +78,8 @@ url_TimeProvince<- "https://raw.githubusercontent.com/MarieDujardin2000/AM10_Gro
 TimeProvince <- read_csv(url_TimeProvince)
 url_Weather<- "https://raw.githubusercontent.com/MarieDujardin2000/AM10_Group_3/main/Weather.csv"
 Weather <- read_csv(url_Weather)
+url_Case<- "https://github.com/MarieDujardin2000/AM10_Group_3/blob/main/Case.csv"
+Case <- read_csv(url_Case)
 
 #Case <- read_csv("~/Documents/Data visualisation/Case.csv")
 #PatientInfo <- read_csv("~/Documents/Data visualisation/PatientInfo.csv")
