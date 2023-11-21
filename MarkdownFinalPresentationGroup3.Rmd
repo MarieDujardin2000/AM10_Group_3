@@ -58,21 +58,37 @@ library(gghighlight)
 library(showtext)
 library(corrplot)
 library(cowplot)
+library(readr)
 ```
 
 ```{r, load dataset, warning=FALSE, message=FALSE}
+url_Region <- "https://raw.githubusercontent.com/MarieDujardin2000/AM10_Group_3/main/Region.csv"
+Region <- read_csv(url_Region)
+url_Policy<- "https://raw.githubusercontent.com/MarieDujardin2000/AM10_Group_3/main/Policy.csv"
+Policy <- read_csv(url_Policy)
+url_SearchTrend<- "https://raw.githubusercontent.com/MarieDujardin2000/AM10_Group_3/main/SearchTrend.csv"
+SearchTrend <- read_csv(url_SearchTrend)
+url_Time<- "https://raw.githubusercontent.com/MarieDujardin2000/AM10_Group_3/main/Time.csv"
+Time <- read_csv(url_Time)
+url_TimeAge<- "https://raw.githubusercontent.com/MarieDujardin2000/AM10_Group_3/main/TimeAge.csv"
+TimeAge <- read_csv(url_TimeAge)
+url_TimeGender<- "https://raw.githubusercontent.com/MarieDujardin2000/AM10_Group_3/main/TimeGender.csv"
+TimeGender <- read_csv(url_TimeGender)
+url_TimeProvince<- "https://raw.githubusercontent.com/MarieDujardin2000/AM10_Group_3/main/TimeProvince.csv"
+TimeProvince <- read_csv(url_TimeProvince)
+url_Weather<- "https://raw.githubusercontent.com/MarieDujardin2000/AM10_Group_3/main/Weather.csv"
+Weather <- read_csv(url_Weather)
 
-Region <- read_csv("~/Documents/Data visualisation/Region.csv")
-Case <- read_csv("~/Documents/Data visualisation/Case.csv")
-PatientInfo <- read_csv("~/Documents/Data visualisation/PatientInfo.csv")
-Policy <- read_csv("~/Documents/Data visualisation/Policy.csv")
-SearchTrend <- read_csv("~/Documents/Data visualisation/SearchTrend.csv")
-SeoulFloating <- read_csv("~/Documents/Data visualisation/SeoulFloating.csv")
-Time <- read_csv("~/Documents/Data visualisation/Time.csv")
-TimeAge <- read_csv("~/Documents/Data visualisation/TimeAge.csv")
-TimeGender <- read_csv("~/Documents/Data visualisation/TimeGender.csv")
-TimeProvince <- read_csv("~/Documents/Data visualisation/TimeProvince.csv")
-Weather <- read_csv("~/Documents/Data visualisation/Weather.csv")
+#Case <- read_csv("~/Documents/Data visualisation/Case.csv")
+#PatientInfo <- read_csv("~/Documents/Data visualisation/PatientInfo.csv")
+#Policy <- read_csv("~/Documents/Data visualisation/Policy.csv")
+#SearchTrend <- read_csv("~/Documents/Data visualisation/SearchTrend.csv")
+#SeoulFloating <- read_csv("~/Documents/Data visualisation/SeoulFloating.csv")
+#Time <- read_csv("~/Documents/Data visualisation/Time.csv")
+#TimeAge <- read_csv("~/Documents/Data visualisation/TimeAge.csv")
+#TimeGender <- read_csv("~/Documents/Data visualisation/TimeGender.csv")
+#TimeProvince <- read_csv("~/Documents/Data visualisation/TimeProvince.csv")
+#Weather <- read_csv("~/Documents/Data visualisation/Weather.csv")
 
 ```
 # COVID-19 on The Map 
